@@ -1,2 +1,64 @@
-<script>
-</script>
+<!DOCTYPE html>
+<body>
+    <script>
+        function getPlayerChoice() {
+            let playerChoice;
+            playerChoice = window.prompt("Enter selection below")
+            return playerChoice
+        }
+
+        function getComputerChoice() {
+            let computerChoice;
+            let computerChoiceNumber = Math.random();
+            if (computerChoiceNumber < (0.33333333333333)) {
+                computerChoice = "rock";
+            } else if (computerChoiceNumber > (0.66666666666)){
+                computerChoice = "scissors";
+            } else {
+                computerChoice = "paper";
+            }
+            return computerChoice
+        }
+
+        function playRound(playerChoice, computerChoice) {
+            playerChoice = playerChoice.toLowerCase()
+            if (playerChoice == computerChoice) {
+                return "It's a tie!"
+            } else if ((playerChoice == "scissors" && computerChoice == "paper")
+                        || (playerChoice == "paper" && computerChoice == "rock")
+                        || (playerChoice == "rock" && computerChoice == "scissors")) {
+                return `You win! ${playerChoice} beats ${computerChoice}.`
+            } else if ((computerChoice == "scissors" && playerChoice == "paper")
+                        || (computerChoice == "paper" && playerChoice == "rock")
+                        || (computerChoice == "rock" && playerChoice == "scissors")) {
+                return `You lose! ${computerChoice} beats ${playerChoice}.`
+            }
+        }
+
+        function game() {
+            let playerChoice;
+            let computerChoice;
+            let playerScore = 0;
+            let computerScore  = 0;
+            let gameResultString;
+            for (let i = 0; i < 5; i++) {
+                playerChoice = getPlayerChoice();
+                computerChoice = getComputerChoice();
+                let thisRoundResult = playRound(playerChoice, computerChoice);
+                console.log(thisRoundResult)
+                console.log(i)
+                if (thisRoundResult.includes("lose")) {
+                    computerScore++;
+                } else if (thisRoundResult.includes("win")) {
+                    playerScore++;
+                } else if (thisRoundResult.includes("tie")) {
+                    i--;
+                }
+                if 
+            }
+            gameResultString = `Computer: ${computerScore} | Player: ${playerScore}`
+            return gameResultString;
+        }
+
+    </script>
+</body>
