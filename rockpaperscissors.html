@@ -1,11 +1,53 @@
 <!DOCTYPE html>
 <body>
+    <div id="buttonDiv">
+        <button id="rockButton" class="rock">Rock</button>
+        <button id="paperButton" class="paper">Paper</button>
+        <button id="scissorsButton" class="scissors">Scissors</button>
+    </div>
+    <div id="resultsDiv">
+        <h2 id="thisRoundDisplay"></h1>
+        <p id="computerScore"></p>
+        <p id="playerScore"></p>
+        <h1 id="finalResultDisplay"></h1>
+        <h2 id="finalScoreDisplay"></h1>
+    </div>
+
     <script>
-        function getPlayerChoice() {
-            let playerChoice;
-            playerChoice = window.prompt("Enter selection below")
-            return playerChoice
-        }
+
+        let playerScore = 0;
+        let computerScore  = 0;
+        let gameResultString;
+
+        const buttons = document.querySelectorAll('button')
+
+        for (button of buttons) {
+            button.addEventListener("click", e => {
+                let computerSelection = getComputerChoice();
+                let playerSelection = e.target.classList[0];
+                console.log(playerSelection, computerSelection);
+                let thisRoundResult = playRound(playerSelection, computerSelection)
+                console.log(thisRoundResult);
+                if (thisRoundResult.includes("lose")) {
+                    computerScore++;
+                } else if (thisRoundResult.includes("win")) {
+                    playerScore++;
+                }
+
+                if (computerScore == 5){
+                    document.getElementById("finalResultDisplay").innerText = "You lose the game."
+                    document.getElementById("finalScoreDisplay").innerText = `Computer: ${computerScore} | Player: ${playerScore}`
+                }
+                else if (playerScore == 5) {
+                    document.getElementById("finalResultDisplay").innerText = "You win the game!"
+                    document.getElementById("finalScoreDisplay").innerText = `Computer: ${computerScore} | Player: ${playerScore}`
+                } else {
+                    document.getElementById("thisRoundDisplay").innerText = thisRoundResult
+                    document.getElementById("computerScore").innerText = "Computer Score: " + computerScore
+                    document.getElementById("playerScore").innerText = "Player Score: " + playerScore
+                }
+            });
+        };
 
         function getComputerChoice() {
             let computerChoice;
@@ -27,38 +69,15 @@
             } else if ((playerChoice == "scissors" && computerChoice == "paper")
                         || (playerChoice == "paper" && computerChoice == "rock")
                         || (playerChoice == "rock" && computerChoice == "scissors")) {
-                return `You win! ${playerChoice} beats ${computerChoice}.`
+                return `You win this round! ${playerChoice} beats ${computerChoice}.`
             } else if ((computerChoice == "scissors" && playerChoice == "paper")
                         || (computerChoice == "paper" && playerChoice == "rock")
                         || (computerChoice == "rock" && playerChoice == "scissors")) {
-                return `You lose! ${computerChoice} beats ${playerChoice}.`
+                return `You lose this round! ${computerChoice} beats ${playerChoice}.`
             }
         }
 
-        function game() {
-            let playerChoice;
-            let computerChoice;
-            let playerScore = 0;
-            let computerScore  = 0;
-            let gameResultString;
-            for (let i = 0; i < 5; i++) {
-                playerChoice = getPlayerChoice();
-                computerChoice = getComputerChoice();
-                let thisRoundResult = playRound(playerChoice, computerChoice);
-                console.log(thisRoundResult)
-                console.log(i)
-                if (thisRoundResult.includes("lose")) {
-                    computerScore++;
-                } else if (thisRoundResult.includes("win")) {
-                    playerScore++;
-                } else if (thisRoundResult.includes("tie")) {
-                    i--;
-                }
-                if 
-            }
-            gameResultString = `Computer: ${computerScore} | Player: ${playerScore}`
-            return gameResultString;
-        }
+
 
     </script>
 </body>
